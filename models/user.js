@@ -9,8 +9,7 @@ exports.User = () => {
         password : String
     });
 
-    const secret = "lifeisbeautifullwhenmoneyisinyourhand.";
-    userSchema.plugin(encrypt, { secret: secret, encryptedFields: ['password'] });
+    userSchema.plugin(encrypt, { secret: process.env.SECRET, encryptedFields: ['password'] });
 
     const User = mongoose.model("User", userSchema);
     return User;
