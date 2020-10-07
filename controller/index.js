@@ -7,6 +7,7 @@ const app = express();
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
+const md5 = require("md5");
 
 app.get("/", (req, res) => {
     res.render("home");
@@ -18,7 +19,7 @@ app.get("/login", (req, res) => {
 
 app.post("/login", (req, res) => {
     const username = req.body.username;
-    const password = req.body.password;
+    const password = md5(req.body.password);
     User.findOne({email: username}, (err, checkInfo) => {
         if(!err)
         {
@@ -46,7 +47,7 @@ app.get("/register", (req, res) => {
 app.post("/register", (req, res) => {
     const userInfo = new User ({
         email : req.body.username,
-        password :  req.body.password
+        password :  md5(req.body.password)
     });
     userInfo.save((err) => {
         if(!err)
