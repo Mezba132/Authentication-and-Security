@@ -6,7 +6,8 @@ exports.userSchema = () => {
         email : String,
         password : String,
         googleId : String,
-        facebookId : String
+        facebookId : String,
+        secret : String
     });
 
     return userSchema;
